@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/admin/add-student-faculty.css">
+
+    <title>Campus management</title>
+</head>
+<body>
+
+<div class="admin-page">
+
+    <div th:insert="/admin/Admin-nav.html" ></div>
+
+    <div class="admin-home">
+        <h3>Add new Faculty</h3>
+        <hr>
+
+        <form class="students-data-container" id="addFacultyForm">
+
+
+            <span class="span-50-50">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword11" placeholder="text" name="name" >
+                    <label for="floatingPassword11">Employee Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword22" placeholder="text" name="employeeId" >
+                    <label for="floatingPassword22">Employee Id</label>
+                </div>
+
+            </span>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword33" placeholder="text" name="employeeImg">
+                <label for="floatingPassword33">Employee photo url</label>
+            </div>
+
+            <span class="span-50-50">
+
+                <div class="form-floating mb-3">
+                    <select class="form-control" id="floatSelect11" name="department">
+                        <option value="">Choose Department</option>
+                        <option value="Civil">Civil Department</option>
+                        <option value="Electrical">Electrical Department</option>
+                        <option value="Electronics & Communication">Electronics & Communication Department</option>
+                        <option value="Mechanical">Mechanical Department</option>
+                        <option value="Computer Science">Computer Science Department</option>
+                    </select>
+                    <label for="floatSelect11">Department</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword44" placeholder="text"  name="designation">
+                    <label for="floatingPassword44">Designation</label>
+                </div>
+
+            </span>
+
+            <span class="span-333">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword111" placeholder="text" name="email">
+                    <label for="floatingPassword111">Email</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword222" placeholder="text"  name="mobile">
+                    <label for="floatingPassword222">Mobile</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword" placeholder="text" name="password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+
+            </span>
+
+            <button class="btn btn-outline-success" type="submit" >Add faculty</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('addFacultyForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('/add-Faculty', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (response.ok) {
+
+                    var data = response.json();
+
+                    return data;
+                } else {
+                    console.error('process failed');
+                }
+            })
+            .then(student => {
+                alert("faculty added!!");
+
+                window.location.href = `/admin-home`
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+</body>
+</html>

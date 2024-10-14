@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/admin/admin-timetable.css">
+
+    <title>Campus management</title>
+</head>
+<body>
+
+<div class="admin-page">
+
+    <div th:insert="/admin/Admin-nav.html" ></div>
+
+    <div class="admin-home">
+        <span>
+          <h3>Timetables</h3>
+          <button class="btn btn-success" id="timetableUpdateToggle" >Update timetable</button>
+        </span>
+        <hr>
+
+        <!-- update timetable -->
+
+        <form action="/admin-updateTimetable" method="post" class="update-timetable-container" id="timetableUpdateContainer" style="display: none"  >
+
+            <h4>Update timetable</h4>
+            <hr>
+
+            <div class="update-timetable">
+
+                <div class="form-floating mb-3">
+                    <select class="form-control" id="selectDepartment"  name="department">
+                        <option value="">Choose Department</option>
+                        <option value="Civil">Civil Department</option>
+                        <option value="Electrical">Electrical Department</option>
+                        <option value="Electronics & Communication">Electronics & Communication Department</option>
+                        <option value="Mechanical">Mechanical Department</option>
+                        <option value="Computer Science">Computer Science Department</option>
+                    </select>
+                    <label for="selectDepartment">Choose Department</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select class="form-control" id="selectDepartment1"  name="semester">
+                        <option value="">Choose Semester</option>
+                        <option value="semester 1">Semester 1</option>
+                        <option value="semester 2">Semester 2</option>
+                        <option value="semester 3">Semester 3</option>
+                        <option value="semester 4">Semester 4</option>
+                        <option value="semester 5">Semester 5</option>
+                        <option value="semester 6">Semester 6</option>
+                        <option value="semester 7">Semester 7</option>
+                        <option value="semester 8">Semester 8</option>
+                    </select>
+                    <label for="selectDepartment1">Choose Semester</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword" placeholder="text"  name="timetableUrl">
+                    <label for="floatingPassword">Timetable image url</label>
+                </div>
+
+            </div>
+
+            <span>
+            <button class="btn btn-outline-secondary" id="newTimetableToggle1" >Cancel</button>
+            <button class="btn btn-outline-success" type="submit" >Update</button>
+          </span>
+
+        </form>
+
+        <div class="admin-timetables-container">
+
+            <form class="timetable-filter" action="/admin-timetable" >
+
+                <select class="form-control"  name="department">
+                    <option value="">Choose Department</option>
+                    <option value="Civil">Civil Department</option>
+                    <option value="Electrical">Electrical Department</option>
+                    <option value="Electronics & Communication">Electronics & Communication Department</option>
+                    <option value="Mechanical">Mechanical Department</option>
+                    <option value="Computer Science">Computer Science Department</option>
+                </select>
+
+                <select class="form-control"  name="semester">
+                    <option value="">Choose Semester</option>
+                    <option value="semester 1">Semester 1</option>
+                    <option value="semester 2">Semester 2</option>
+                    <option value="semester 3">Semester 3</option>
+                    <option value="semester 4">Semester 4</option>
+                    <option value="semester 5">Semester 5</option>
+                    <option value="semester 6">Semester 6</option>
+                    <option value="semester 7">Semester 7</option>
+                    <option value="semester 8">Semester 8</option>
+                </select>
+
+                <button class="btn btn-outline-primary" type="submit">Fetch Timetable</button>
+
+            </form>
+
+
+            <div class="timetable-img" th:if="${timetable}" >
+                <img th:src="${timetable.timetableUrl}" alt="">
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    const timetableUpdateContainer = document.getElementById("timetableUpdateContainer");
+
+    const timetableUpdateToggle = document.getElementById("timetableUpdateToggle");
+
+    let isToggle = false;
+
+    document.getElementById("timetableUpdateToggle").addEventListener("click", (event)=>{
+        isToggle = !isToggle;
+        console.log(isToggle);
+        if(isToggle){
+            timetableUpdateContainer.style.display = "flex"
+        }else{
+            timetableUpdateContainer.style.display = "none"
+        }
+    })
+
+    document.getElementById("newTimetableToggle1").addEventListener("click", (event)=>{
+        isToggle = false;
+    })
+
+</script>
+
+
+
+</body>
+</html>

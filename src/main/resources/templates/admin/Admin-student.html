@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/admin/student-faculty-profile.css">
+
+    <title>Campus management</title>
+</head>
+<body>
+
+<div class="admin-page">
+
+    <div th:insert="/admin/Admin-nav.html" ></div>
+
+    <div class="admin-home">
+        <span>
+          <h3>Student Details</h3>
+          <a href="/admin-addStudent"><button class="btn btn-success" >Add student</button></a>
+        </span>
+        <hr>
+
+        <div class="students-data-container">
+
+            <form class="data-search" action="/admin-student">
+
+                <input type="text" class="form-control" placeholder="Search with Student Id"  name="studentId" >
+                <button class="btn btn-outline-primary" type="submit" >Search</button>
+
+            </form>
+
+            <div class="search-result" th:if="${stu}" >
+
+                <div class="search-details-text">
+                <span>
+                  <b>Student name: </b>
+                  <p th:text="${stu.name}" ></p>
+                </span>
+                    <span>
+                  <b>Student Id: </b>
+                  <p th:text="${stu.studentId}"></p>
+                </span>
+                    <span>
+                  <b>Branch: </b>
+                  <p th:text="${stu.branch}"></p>
+                </span>
+                    <span>
+                  <b>Semester: </b>
+                  <p th:text="${stu.semester}"></p>
+                </span>
+                    <span>
+                  <b>Mobile: </b>
+                  <p th:text="${stu.mobile}"></p>
+                </span>
+                    <span>
+                  <b>Email: </b>
+                  <p th:text="${stu.email}"></p>
+                </span>
+                    <a th:href="${'/admin-updateStudent/' + stu._id}"><button class="btn btn-outline-primary" >Update details</button></a>
+                </div>
+
+                <div class="search-details-image">
+                    <img th:src="${stu.studentImg}" alt="">
+                    <p th:text="${stu.name}"></p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
